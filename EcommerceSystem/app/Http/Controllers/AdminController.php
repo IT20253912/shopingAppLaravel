@@ -55,23 +55,29 @@ class AdminController extends Controller {
 
     public function add_product(Request $request)
     {
-        $product=new product;
-
-        $product->title=$request->title;
-        $product->description=$request->description;
-        $product->price=$request->price;
-        $product->quantity=$request->dis_price;
-        $product->discount_price=$request->quantity;
-        $product->catagory=$request->catagory;
-        $image=$request->image;
-        $imagename=time() . '.'. $image ->getClientOriginalExtension();
-
-        $request->image->move('product',$imagename);
-
-        $product->image=$imagename;
-
+        $product = new Product;
+    
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->discount_price = $request->dis_price;
+        $product->image = ''; // Placeholder for now, you'll handle image upload separately
         $product->save();
-
-        return redirect()->back();
+    
+        // Attach categories to the product
+        $catagory = $request->input('catagory', []);
+        $product->catagory()->sync($catagory);
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('product', $imageName);
+            $product->image = $imageName;
+            $product->save();
+        }
+    
+        return redirect()->back()->with('message', 'Product added successfully.');
     }
 }

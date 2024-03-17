@@ -68,14 +68,11 @@
         </div>
      
         <div class="div_design">
-            <label>category: </label>
-            <select name="catagory">
-                @foreach($catagory as $catagory)
-                <option value="{{$catagory->catagory_name}}">{{$catagory->catagory_name}}</option>
-
-                @endforeach
-            </select>
-        </div>
+                            <label>Categories: </label><br>
+                            @foreach($catagory as $catagory)
+                            <input type="checkbox" name="catagories[]" value="{{ $catagory->id }}"> {{ $catagory->catagory_name }}<br>
+                            @endforeach
+                        </div>
         <div class="div_design">
             <label>Product image: </label>
             <input type="file" name="image">

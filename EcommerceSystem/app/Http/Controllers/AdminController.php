@@ -43,4 +43,15 @@ class AdminController extends Controller {
     
         return Redirect::route('view_catagory')->with('message', 'Category updated successfully.');
     }
+
+    public function view_product()
+    {
+        $catagory = Catagory::all();
+        return view('admin.product',compact('catagory'));
+    }
+
+    public function add_product(Request $request)
+    {
+
+    }
 }

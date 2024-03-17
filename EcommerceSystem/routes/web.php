@@ -44,3 +44,8 @@ route::get('/edit_category/{id}', [AdminController::class, 'edit_category'])->na
 
 
 route::put('/update_category/{id}', [AdminController::class, 'update_category'])->name('update_category');
+
+route::get('/view_product',[AdminController::class,'view_product']);
+
+
+route::post('/add_product',[AdminController::class,'add_product']);

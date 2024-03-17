@@ -1,92 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    @include('admin.css');
 
-    <style type="text/css">
-        .div_center
-        {
-            text-align: center;
-            padding: 40px;
-        }
+<head>
+  <!-- Required meta tags -->
+  @include('admin.css');
 
-        .center
-        {
-          margin: auto;
-          width: 50%;
-          text-align: center;
-          border: 3px solid white;
-        }
-    </style>
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_sidebar.html -->
-      @include('admin.sidebar');
-      <!-- partial -->
-      @include('admin.header');
-        <!-- partial -->
-       
-          <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
-          <div class="main-panel">
-            <div class="content-wrapper">
+  <style type="text/css">
+    .div_center {
+      text-align: center;
+      padding: 40px;
+    }
 
-                @if(session()->has('message'))
+    .center {
+      margin: auto;
+      width: 50%;
+      text-align: center;
+      border: 3px solid white;
+    }
+  </style>
+</head>
 
-                <div class="alert alert-success">
-                  <button type="buttton" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                  {{session()->get('message')}}
-                </div>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    @include('admin.sidebar');
+    <!-- partial -->
+    @include('admin.header');
+    <!-- partial -->
 
-                @endif
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <div class="main-panel">
+      <div class="content-wrapper">
 
-                <div class="div_center">
-                    <h2>Add Catagory</h2>
+        @if(session()->has('message'))
 
-                    <form action="{{url('/add_catagory')}}" method="POST">
-
-                      @csrf
-
-                        <input type="text" name="catagory" placeholder="write catagory name">
-                        <input type="submit" value="add" class="btn btn-primary" name="submit" >
-                    </form>
-
-
-
-                </div>
-
-                <table class="center">
-                  <tr>
-                    <td>Catagory name</td>
-                    <td>Action</td>
-                  </tr>
-
-                @foreach($data as $data)
-
-                  <tr>
-                    <td>{{$data->catagory_name}}</td>
-                    <td>
-                      <a class="btn btn-danger" href="{{url('delete_catagory',$data->id)}}">Delete</a>
-                    </td>
-                  </tr>
-                @endforeach
-
-                </table>
-               
-
-            </div>
-
-          </div>
-          <!-- partial -->
+        <div class="alert alert-success">
+          <button type="buttton" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+          {{session()->get('message')}}
         </div>
-        <!-- main-panel ends -->
+
+        @endif
+
+        <div class="div_center">
+          <h2>Add Catagory</h2>
+
+
+
+          <form action="{{ url('/add_catagory') }}" method="POST">
+            @csrf
+            <input type="text" name="catagory" placeholder="write category name">
+            <select name="parent_id">
+              <option value="">Main Category</option>
+              @foreach($mainCategories as $category)
+              <option value="{{ $category->id }}">{{ $category->catagory_name }}</option>
+              @endforeach
+            </select>
+            <input type="submit" value="Add" class="btn btn-primary" name="submit">
+          </form>
+
+
+
+        </div>
+
+
+
+
+
+
+
       </div>
-      <!-- page-body-wrapper ends -->
+
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    @include('admin.script');
-  </body>
+    <!-- partial -->
+  </div>
+  <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  @include('admin.script');
+</body>
+
 </html>

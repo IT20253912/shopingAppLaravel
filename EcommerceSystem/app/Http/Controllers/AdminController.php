@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Catagory;
 
+use App\Models\Product;
+
+
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller {
@@ -52,6 +55,23 @@ class AdminController extends Controller {
 
     public function add_product(Request $request)
     {
+        $product=new product;
 
+        $product->title=$request->title;
+        $product->description=$request->description;
+        $product->price=$request->price;
+        $product->quantity=$request->dis_price;
+        $product->discount_price=$request->quantity;
+        $product->catagory=$request->catagory;
+        $image=$request->image;
+        $imagename=time() . '.'. $image ->getClientOriginalExtension();
+
+        $request->image->move('product',$imagename);
+
+        $product->image=$imagename;
+
+        $product->save();
+
+        return redirect()->back();
     }
 }

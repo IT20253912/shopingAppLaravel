@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Catagory;
 
+use Illuminate\Support\Facades\Redirect;
+
 class AdminController extends Controller {
     // public function view_catagory() {
     //     $data = Catagory::all();
@@ -27,5 +29,18 @@ class AdminController extends Controller {
         $data = Catagory::find($id);
         $data->delete();
         return redirect()->back();
+    }
+
+    public function edit_category($id) {
+        $category = Catagory::findOrFail($id);
+        return view('admin.edit_category', compact('category'));
+    }
+
+    public function update_category(Request $request, $id) {
+        $category = Catagory::findOrFail($id);
+        $category->catagory_name = $request->category_name;
+        $category->save();
+    
+        return Redirect::route('view_catagory')->with('message', 'Category updated successfully.');
     }
 }

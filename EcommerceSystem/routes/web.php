@@ -35,7 +35,12 @@ Route::middleware([
 
 route::get('/redirect',[HomeController::class,'redirect']);
 
-route::get('/view_catagory',[AdminController::class,'view_catagory']);
+route::get('/view_catagory',[AdminController::class,'view_catagory'])->name('view_catagory');;
 route::post('/add_catagory', [AdminController::class, 'add_catagory']);
 
 route::get('/delete_catagory/{id}',[AdminController::class,'delete_catagory']);
+
+route::get('/edit_category/{id}', [AdminController::class, 'edit_category'])->name('edit_category');
+
+
+route::put('/update_category/{id}', [AdminController::class, 'update_category'])->name('update_category');

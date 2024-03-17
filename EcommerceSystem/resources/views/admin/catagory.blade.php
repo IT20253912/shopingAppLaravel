@@ -63,6 +63,33 @@
 
         </div>
 
+       <!-- catagory.blade.php -->
+<table class="center">
+    <tr>
+        <td>Category name</td>
+        <td>Action</td>
+    </tr>
+    @foreach($mainCategories as $mainCategory)
+        <tr>
+            <td>{{ $mainCategory->catagory_name }}</td>
+            <td>
+                <a class="btn btn-primary" href="{{ route('edit_category', $mainCategory->id) }}">Edit</a>
+                <a class="btn btn-danger" href="{{ url('delete_catagory', $mainCategory->id) }}">Delete</a>
+            </td>
+        </tr>
+        @foreach($mainCategory->children as $subCategory)
+            <tr>
+                <td>-- {{ $subCategory->catagory_name }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ route('edit_category', $subCategory->id) }}">Edit</a>
+                    <a class="btn btn-danger" href="{{ url('delete_catagory', $subCategory->id) }}">Delete</a>
+                </td>
+            </tr>
+        @endforeach
+    @endforeach
+</table>
+
+
 
 
 
